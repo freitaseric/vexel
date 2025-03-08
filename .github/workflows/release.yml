@@ -1,0 +1,31 @@
+name: Release Vexel
+
+on:
+  workflow_dispatch: 
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Zig 0.14.0
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.14.0
+        
+      - name: Build project
+        run: zig build
+
+      - name: Release project
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${{ github.workspace }}/CHANGELOG.md
+          token: ${{ secrets.TOKEN }}
+          files: |
+            zig-out/bin/*
+            zig-out/lib/*
