@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "lldb-dap",
+      "request": "launch",
+      "name": "Debug Zig",
+      "program": "${workspaceRoot}/zig-out/bin/vexel",
+      "args": [],
+      "env": [],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "zig build"
+    },
+  ]
+}
