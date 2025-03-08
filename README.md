@@ -41,7 +41,7 @@ All such contributions are welcome, and respect and patience in issues or pr are
 
 ### Prerequisites
 
-- [Zig compiler](https://ziglang.org/learn/getting-started/).
+- A [zig compiler](https://ziglang.org/learn/getting-started/) in version 0.14.0.
 - A text editor or an IDE of your choice. I recommend you to use [Visual Studio Code](https://code.visualstudio.com) with [Zig Language](https://marketplace.visualstudio.com/items?itemName=ziglang.vscode-zig) extension.
 - Some knowledge in low-level programming and in the Zig programming language.
 
