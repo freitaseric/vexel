@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Zig Version](https://img.shields.io/badge/zig-v0.14.0-orange?style=flat&logo=zig)
-![Static Badge](https://img.shields.io/badge/vexel-v0.0.1-8A2BE2?style=flat)
+![GitHub Tag](https://img.shields.io/github/v/tag/freitaseric/vexel?sort=semver&label=version)
 
 </div>
 <div align="center">
