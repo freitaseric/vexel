@@ -24,7 +24,10 @@
   - [Contributing](#contributing)
   - [Development](#development)
     - [Prerequisites](#prerequisites)
-    - [Building and Running](#building-and-running)
+    - [Building](#building)
+  - [Documentation](#documentation)
+    - [Running locally](#running-locally)
+      - [Prerequisites](#prerequisites-1)
   - [License ](#license-)
   - [Contributors ](#contributors-)
 
@@ -45,33 +48,46 @@ All such contributions are welcome, and respect and patience in issues or pr are
 - A text editor or an IDE of your choice. I recommend you to use [Visual Studio Code](https://code.visualstudio.com) with [Zig Language](https://marketplace.visualstudio.com/items?itemName=ziglang.vscode-zig) extension.
 - Some knowledge in low-level programming and in the Zig programming language.
 
-### Building and Running
+### Building
 
 To build this project you can use the command above:
 ```shell
 $ zig build
 ```
-Now all binaries of the project can be found at `zig-out/bin` and the main library can be found at `zig-out/lib`.
-
-> [!TIP]
-> After successfully build the project, you should run the main binary to check if all works.
-> 
-> ```shell
->  $ ./zig-out/bin/vexel
-> ```
-
-To run **Vexel** you may run the following command:
-```shell
-$ zig run src/main.zig
-```
-> [!NOTE]
-> This command will print to the console the content of a struct `Node` containing a element named `html`.
+Now the library binary can be found at `zig-out/lib`.
 
 > [!TIP]
 > You also can run the project tests for grant all functions and structs are work correctly.
 >
 > ```shell
-> $ zig test
+> $ zig test src/test.zig
+> ```
+
+## Documentation
+
+Currently, the online **Vexel** documentation is available at <https://freitaseric.github.io/vexel>.
+
+### Running locally
+
+#### Prerequisites
+
+- A [zig compiler](https://ziglang.org/learn/getting-started/) in version 0.14.0.
+- A [python interpreter](https://www.python.org/) in any version.
+
+To run the documentation locally, you must have to run the command above:
+
+```bash
+$ ./scripts/vexel-docs.sh
+```
+
+Now open your browser at address <localhost:8080> to view the ocumentation.
+
+> [!IMPORTANT]
+> This script is only available for Linux users.
+> But you can run manually the following commands:
+> ```bash
+> $ zig build docs --summary all
+> $ python -m http.server 8080 -d zig-out/docs/
 > ```
 
 ## License ![GitHub License](https://img.shields.io/github/license/freitaseric/vexel)
