@@ -2,35 +2,42 @@ const std = @import("std");
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
-    const optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = std.builtin.OptimizeMode.ReleaseSafe });
+    const optimize = b.standardOptimizeOption(.{});
 
-    const lib_mod = b.createModule(.{
-        .root_source_file = b.path("src/root.zig"),
+    const vexel_mod = b.createModule(.{
+        .root_source_file = b.path("src/vexel.zig"),
         .target = target,
         .optimize = optimize,
     });
 
-    const lib = b.addLibrary(.{
-        .linkage = .dynamic,
+    const vexel = b.addSharedLibrary(.{
         .name = "vexel",
-        .root_module = lib_mod,
+        .root_source_file = b.path("src/vexel.zig"),
+        .target = target,
+        .optimize = optimize,
     });
-    b.installArtifact(lib);
+    b.installArtifact(vexel);
+
+    {
+        const vexel_unit_tests = b.addTest(.{
+            .root_source_file = b.path("src/vexel.zig"),
+            .target = target,
+            .optimize = optimize,
+        });
+        vexel_unit_tests.root_module.addImport("vexel", vexel_mod);
+
+        const vexel_unit_tests_run = b.addRunArtifact(vexel_unit_tests);
+
+        const vexel_unit_tests_run_step = b.step("test", "Run unit tests");
+        vexel_unit_tests_run_step.dependOn(&vexel_unit_tests_run.step);
+    }
 
     const install_docs = b.addInstallDirectory(.{
-        .source_dir = lib.getEmittedDocs(),
+        .source_dir = vexel.getEmittedDocs(),
         .install_dir = .prefix,
         .install_subdir = "docs",
     });
 
     const docs_step = b.step("docs", "Install docs into zig-out/docs");
     docs_step.dependOn(&install_docs.step);
-
-    const lib_unit_tests = b.addTest(.{
-        .root_module = lib_mod,
-    });
-    const run_lib_unit_tests = b.addRunArtifact(lib_unit_tests);
-
-    const test_step = b.step("test", "Run unit tests");
-    test_step.dependOn(&run_lib_unit_tests.step);
 }
